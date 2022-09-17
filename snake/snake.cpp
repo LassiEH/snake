@@ -2,8 +2,10 @@
 //
 
 #include <iostream>
+#include <cstdlib>
+#include <Windows.h>
 
-#define sq(x) x*x
+//#define sq(x) x*x
 
 using namespace std;
 
@@ -18,6 +20,7 @@ void board()
         for (int j = 0; j < WIDTH - 2; j++)
         {
             if (i == 0 || i == HEIGHT - 1) cout << '#';
+            else if (i == y && j == x) cout << 'o';
             else cout << ' ';
         }
         cout << "#\n";
@@ -26,5 +29,12 @@ void board()
 
 int main()
 {
-    board();
+    while (true)
+    {
+        board();
+        x++;
+        //system("cls");
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 0 });
+    }
+
 }
