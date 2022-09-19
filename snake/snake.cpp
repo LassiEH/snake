@@ -1,40 +1,22 @@
-// snake.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+#include "Snake.h"
 
-#include <iostream>
-#include <cstdlib>
-#include <Windows.h>
-
-//#define sq(x) x*x
-
-using namespace std;
-
-const int WIDTH = 50, HEIGHT = 25;
-
-void board()
+Snake::Snake(COORD pos, int velocity)
 {
-    // Luodaan reunat pelikentälle
-    for (int i = 0; i < HEIGHT; i++)
-    {
-        cout << "\t\t\t\t#";
-        for (int j = 0; j < WIDTH - 2; j++)
-        {
-            if (i == 0 || i == HEIGHT - 1) cout << '#';
-            else if (i == y && j == x) cout << 'o';
-            else cout << ' ';
-        }
-        cout << "#\n";
-    }
+	this->pos = pos;
+	this->velocity = velocity;
+	lenght = 1;
+	direction = 'n';
 }
 
-int main()
-{
-    while (true)
-    {
-        board();
-        x++;
-        //system("cls");
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 0 });
-    }
+void Snake::change_direction(char dir) { direction = dir; }
 
+void Snake::move_snake()
+{
+	switch (direction)
+	{
+	case 'u': pos.Y -= velocity; break;
+	case 'd': pos.Y += velocity; break;
+	case 'l': pos.X -= velocity; break;
+	case 'r': pos.X += velocity; break;
+	}
 }
