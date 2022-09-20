@@ -4,7 +4,7 @@ Snake::Snake(COORD pos, int velocity)
 {
 	this->pos = pos;
 	this->velocity = velocity;
-	lenght = 1;
+	length = 1;
 	direction = 'n';
 }
 
@@ -20,3 +20,5 @@ void Snake::move_snake()
 	case 'r': pos.X += velocity; break;
 	}
 }
+
+COORD Snake::get_pos() { return pos; }
