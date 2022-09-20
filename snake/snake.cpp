@@ -36,6 +36,6 @@ void Snake::grow() { length++; }
 
 bool Snake::collided()
 {
-	if (pos.X < 1 || pos.X > WIDTH || pos.Y < 1 || pos.Y > HEIGHT) return true;
+	if (pos.X < 1 || pos.X > WIDTH-2 || pos.Y < 1 || pos.Y > HEIGHT-2) return true;
 	return false;
 }

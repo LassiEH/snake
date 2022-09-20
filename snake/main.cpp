@@ -27,8 +27,10 @@ void board()
         for (int j = 0; j < WIDTH - 2; j++)
         {
             if (i == 0 || i == HEIGHT - 1) cout << '#';
-            else if (i == snake_pos.Y && j == snake_pos.X) cout << 'o';
-            else if (i == food_position.Y && j == food_position.X) cout << '*';
+
+            else if (i == snake_pos.Y && j+1 == snake_pos.X) cout << 'o';
+            else if (i == food_position.Y && j+1 == food_position.X) cout << '*';
+            
             else cout << ' ';
         }
         cout << "#\n";
@@ -38,6 +40,8 @@ void board()
 int main()
 {
     srand(time(NULL));
+
+    food.gen_food();
 
     bool game_over = false;
 
@@ -55,7 +59,6 @@ int main()
             case 'd': snake.change_direction('r'); break;
             }
         }
-        snake.move_snake();
 
         if (snake.eaten(food.get_position()))
         {
@@ -64,6 +67,8 @@ int main()
         }
 
         if (snake.collided()) game_over = true;
+
+        snake.move_snake();
 
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 0 });
     }

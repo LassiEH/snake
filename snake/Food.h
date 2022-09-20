@@ -8,7 +8,6 @@ class Food
 	private:
 		COORD position;
 	public:
-		Food();
 		void gen_food();
 		COORD get_position();
 
