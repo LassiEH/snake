@@ -1,5 +1,8 @@
 #include "Snake.h"
 
+#define WIDTH 50
+#define HEIGHT 25
+
 Snake::Snake(COORD pos, int velocity)
 {
 	this->pos = pos;
@@ -22,3 +25,17 @@ void Snake::move_snake()
 }
 
 COORD Snake::get_pos() { return pos; }
+
+bool Snake::eaten(COORD food_position)
+{
+	if (food_position.X == pos.X && food_position.Y == pos.Y) return true;
+	return false;
+}
+
+void Snake::grow() { length++; }
+
+bool Snake::collided()
+{
+	if (pos.X < 1 || pos.X > WIDTH || pos.Y < 1 || pos.Y > HEIGHT) return true;
+	return false;
+}

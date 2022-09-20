@@ -15,5 +15,11 @@ class Snake
 		void change_direction(char dir); //Metodi k‰‰rmeen suunnan vaihtamiselle
 		void move_snake(); //Metodi k‰‰rmeen liikkumiselle
 		COORD get_pos(); //Metodi k‰‰rmeen sijainnin saamiselle
+
+		bool eaten(COORD food_position);
+
+		void grow();
+
+		bool collided();
 };
 

@@ -2,9 +2,10 @@
 //
 
 #include <iostream>
-#include <cstdlib>
 #include "Snake.h"
 #include <conio.h>
+#include "Food.h"
+#include <ctime>
 
 #define WIDTH 50
 #define HEIGHT 25
@@ -12,11 +13,13 @@
 using namespace std;
 
 Snake snake({ WIDTH / 2, HEIGHT / 2 }, 1);
+Food food;
 
 
 void board()
 {
     COORD snake_pos = snake.get_pos();
+    COORD food_position = food.get_position();
     // Luodaan reunat pelikentälle
     for (int i = 0; i < HEIGHT; i++)
     {
@@ -25,6 +28,7 @@ void board()
         {
             if (i == 0 || i == HEIGHT - 1) cout << '#';
             else if (i == snake_pos.Y && j == snake_pos.X) cout << 'o';
+            else if (i == food_position.Y && j == food_position.X) cout << '*';
             else cout << ' ';
         }
         cout << "#\n";
@@ -33,7 +37,11 @@ void board()
 
 int main()
 {
-    while (true)
+    srand(time(NULL));
+
+    bool game_over = false;
+
+    while (!game_over)
     {
         board();
 
@@ -48,6 +56,14 @@ int main()
             }
         }
         snake.move_snake();
+
+        if (snake.eaten(food.get_position()))
+        {
+            food.gen_food();
+            snake.grow();
+        }
+
+        if (snake.collided()) game_over = true;
 
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 0 });
     }
