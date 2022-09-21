@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
+#include <vector>
 
+using namespace std;
 
 class Snake
 {
@@ -9,6 +11,7 @@ class Snake
 		int length;
 		int velocity;
 		char direction;
+		vector<COORD> body;
 
 	public:
 		Snake(COORD pos, int velocity);
@@ -21,5 +24,7 @@ class Snake
 		void grow();
 
 		bool collided();
+
+		vector<COORD> get_body();
 };
 

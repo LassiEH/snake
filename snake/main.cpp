@@ -15,11 +15,15 @@ using namespace std;
 Snake snake({ WIDTH / 2, HEIGHT / 2 }, 1);
 Food food;
 
+int score = 0;
 
 void board()
 {
     COORD snake_pos = snake.get_pos();
     COORD food_position = food.get_position();
+    vector<COORD> snake_body = snake.get_body();
+
+    cout << "Score: " << score << "\n\n";
     // Luodaan reunat pelikentälle
     for (int i = 0; i < HEIGHT; i++)
     {
@@ -31,7 +35,20 @@ void board()
             else if (i == snake_pos.Y && j+1 == snake_pos.X) cout << 'o';
             else if (i == food_position.Y && j+1 == food_position.X) cout << '*';
             
-            else cout << ' ';
+            else
+            {
+                bool isBodyPart = false;
+                for (int k = 0; k < snake_body.size()-1; k++)
+                {
+                    if (i == snake_body[k].Y && j + 1 == snake_body[k].X)
+                    {
+                        cout << 'o';
+                        isBodyPart = true;
+                        break;
+                    }
+                }
+                if (!isBodyPart) cout << ' ';
+            }
         }
         cout << "#\n";
     }
@@ -49,6 +66,9 @@ int main()
     {
         board();
 
+        // Otetaan vastaan näppäimistön painalluksia,
+        // switch-lauseessa sitten määritellään mitä
+        // mistäkin painalluksesta tapahtuu.
         if (_kbhit())
         {
             switch (_getch())
@@ -64,6 +84,7 @@ int main()
         {
             food.gen_food();
             snake.grow();
+            score++;
         }
 
         if (snake.collided()) game_over = true;
